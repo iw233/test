@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            body {
+                font-family: 'Courier New', Courier, monospace;
+                font-size: medium;
+                padding: 50px;
+                margin: 20px;
+            }
+            .dice {
+                margin: 20px;
+                padding: 10px;
+            }
+            #totalRolls {
+                margin: 20px;
+                font-size: larger;
+                font-weight: bolder;
+            }
+        </style>
+    </head>
+    <body>
+        <label for="txtbx">number for Yahtzee:</label>
+        <input id="txtbx" type="text" name="txtbx" />
+        <button onclick="go()">click</button>
+        <div id="totalRolls"></div>
+        <div class="dice">
+            <span>
+                <img id="dice1" src="">
+            </span>
+            <span>
+                <img id="dice2" src="">
+            </span>
+            <span>
+                <img id="dice3" src="">
+            </span>
+            <span>
+                <img id="dice4" src="">
+            </span>
+            <span>
+                <img id="dice5" src="">
+            </span>
+            <span>
+                <img id="dice6" src="">
+            </span>
+        </div>
+        <script>
+
+            var d1p = "https://learningsuite.byu.edu/plugins/Upload/fileDownload.php?fileId=48e43078-6jgT-Pq41-LHti-gUe0ceeee331";
+            var d2p = "https://learningsuite.byu.edu/plugins/Upload/fileDownload.php?fileId=8499b8b3-obGY-u4mm-jFWA-zK528a743aea";
+            var d3p = "https://learningsuite.byu.edu/plugins/Upload/fileDownload.php?fileId=114681e1-wFR3-vDx5-UYld-2G103042a617";
+            var d4p = "https://learningsuite.byu.edu/plugins/Upload/fileDownload.php?fileId=9929e653-S3wq-uMXd-TVLp-GK81ca434fb4";
+            var d5p = "https://learningsuite.byu.edu/plugins/Upload/fileDownload.php?fileId=3002c218-4VC0-0TTo-xBqF-v0df71d0bdf0";
+            var d6p = "https://learningsuite.byu.edu/plugins/Upload/fileDownload.php?fileId=1f7749ff-Liro-AWOc-ahuR-iz6c7e821b09";
+
+            var dice1 = document.getElementById("dice1");
+            var dice2 = document.getElementById("dice2");
+            var dice3 = document.getElementById("dice3");
+            var dice4 = document.getElementById("dice4");
+            var dice5 = document.getElementById("dice5");
+            var dice6 = document.getElementById("dice6");
+            var txtbx = document.getElementById("txtbx");
+
+            var ma = [dice1, dice2, dice3, dice4, dice5, dice6];
+            var oa = [d1p, d2p, d3p, d4p, d5p, d6p];
+            var rn;
+            var r;
+            var c;
+            var ne;
+            var oc;
+            var pe;
+            var tr = 0;
+
+            txtbx.addEventListener("keydown", f => {
+                if (f.code == "Enter") {
+                    go();
+                }
+            });
+
+            function go() {
+                var totalRolls = document.getElementById("totalRolls");
+                tr = 0;
+                var un = parseInt(document.getElementById("txtbx").value);
+                oc = 0;
+                if ((Number.isInteger(un)) && (un < 7) && (un > 0)) {
+                    ma.forEach(e => {
+                        pe = e.parentElement;
+                        c = 0;
+                        rn = 10;
+                        ne = document.createElement("p");
+                        if (pe.childElementCount > 0) {
+                            pe.replaceChild(ne, pe.childNodes[0]);
+                        }
+                        else {
+                            pe.appendChild(ne);
+                        }
+                        while (rn != (un - 1)) {
+                            rn = Math.floor(Math.random() * 6);
+                            e.src = oa[rn];
+                            ++c;
+                        }
+                        ++oc;
+                        ne.innerText = "dice " + String(oc) + " rolls: " + String(c);
+                        tr += c;
+                    });
+                    totalRolls.textContent = "total rolls: " + String(tr);
+                }
+                else {
+                    alert("invalid input");
+                }
+            }
+        </script>
+    </body>
+</html>
